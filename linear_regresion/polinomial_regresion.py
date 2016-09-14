@@ -23,7 +23,21 @@ regressor_quadratic = LinearRegression()
 regressor_quadratic.fit(X_train_quadratic,y_train)
 xx_quadratic = quadratic_featurizer.transform(xx.reshape(xx.shape[0],1))
 
+
 plt.plot(xx,regressor_quadratic.predict(xx_quadratic), c='r', linestyle='--')
+####################
+#### DEGREE = 3 ####
+####################
+# quadratic_featurizer = PolynomialFeatures(degree=3)
+# X_train_quadratic = quadratic_featurizer.fit_transform(X_train)
+# X_test_quadratic = quadratic_featurizer.transform(X_test)
+#
+# regressor_quadratic = LinearRegression()
+# regressor_quadratic.fit(X_train_quadratic,y_train)
+# xx_quadratic = quadratic_featurizer.transform(xx.reshape(xx.shape[0],1))
+#
+# plt.plot(xx,regressor_quadratic.predict(xx_quadratic), c='r', linestyle='-.')
+
 plt.title('Pizza price regressed on diameter')
 plt.xlabel('Diameter')
 plt.ylabel('Price')
