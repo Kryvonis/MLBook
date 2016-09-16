@@ -1,6 +1,28 @@
+import numpy as np
+from skimage.feature import corner_harris, corner_peaks
+from skimage.color import rgb2gray
+import matplotlib.pyplot as plt
+import skimage.io as io
+from skimage.exposure import equalize_hist
 
-from sklearn import datasets
-digit = datasets.load_digits()
-print('Digit - {}'.format(digit.target[0]))
-print(digit.images[0])
-print('Feature vector\n {} '.format(digit.images[0].reshape(-1,64)))
+
+def show_corners(corners, image):
+    fig = plt.figure()
+    plt.gray()
+    plt.imshow(image)
+    y_corner, x_corner = zip(*corners)
+    plt.plot(x_corner, y_corner, 'or')
+    plt.xlim(0, image.shape[1])
+    plt.ylim(image.shape[0], 0)
+    fig.set_size_inches(np.array(fig.get_size_inches()) * 1.5)
+    plt.show()
+
+mandril = io.imread('../datasets/images/mandrill.png')
+mandril = equalize_hist(rgb2gray(mandril))
+corners = corner_peaks(corner_harris(mandril),min_distance=2)
+show_corners(corners,mandril)
+
+mandril = io.imread('../datasets/images/lena.png')
+mandril = equalize_hist(rgb2gray(mandril))
+corners = corner_peaks(corner_harris(mandril),min_distance=2)
+show_corners(corners,mandril)
